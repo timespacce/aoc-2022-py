@@ -550,53 +550,40 @@ def task_18():
     rows = s.readlines()
     s.close()
 
+    directions = {'L': np.array([0, -1]), 'R': np.array([0, 1]), 'U': np.array([-1, 0]), 'D': np.array([1, 0]), }
+
     def transform(row):
         u, c = row.strip().split(' ')
-        return u, int(c)
+        return directions[u], int(c)
 
     instructions = [transform(row) for row in rows]
     h, w = 50, 50
     grid = np.zeros((h, w))
 
-    directions = {'L': np.array([0, -1]), 'R': np.array([0, 1]), 'U': np.array([-1, 0]), 'D': np.array([1, 0]), }
-
     h_xy = np.array([h // 2, w // 2])
     grid[h // 2, w // 2] = 1
-
-    def distance(a, b):
-        return b[0] - a[0], b[1] - a[1]
 
     tail = np.zeros((10, 2), dtype=np.int)
     tail[:, ] = h_xy
 
-    def update_tail(t_xy_previous):
-        for i in range(len(tail)):
-            x, y = tail[i]
-            grid[x, y] = 0
-
-        for i in range(len(tail) - 1):
-            dx, dy = distance(tail[i], tail[i+1])
-            if abs(dx) <= 1 and abs(dy) <= 1:
-                tail[i] = tail[i + 1]
-                x, y = tail[i]
-                grid[x, y] = -1
-        tail[-1] = t_xy_previous
-        x, y = tail[-1]
-        grid[x, y] = -1
-        x, y = tail[0]
-        grid[x, y] = max(grid[x, y], 1)
-        return
-
-    for (u, c) in instructions:
-        v = directions[u]
+    for (v, c) in instructions:
         for i in range(c):
-            h_xy_previous = h_xy.copy()
-            h_xy += v
-            dx, dy = distance(tail[-1], h_xy)
-            if abs(dx) <= 1 and abs(dy) <= 1:
-                continue
-            else:
-                update_tail(h_xy_previous)
+            tail[-1] += v
+            for i in reversed(range(len(tail) - 1)):
+                t_x, t_y = tail[i]
+                h_x, h_y = tail[i + 1]
+                if h_x - t_x > 1:
+                    tail[i] += np.array([0, 1])
+                    continue
+                elif h_x - t_x < 1:
+                    tail[i] += np.array([0, -1])
+                    continue
+                if h_y - t_y > 1:
+                    tail[i] += np.array([1, 0])
+                    continue
+                elif h_y - t_y < 1:
+                    tail[i] += np.array([-1, 0])
+                    continue
         continue
 
     visited_positions = np.sum(grid >= 1)
