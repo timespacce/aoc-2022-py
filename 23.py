@@ -84,7 +84,8 @@ for j in range(rounds):
         max_y = max(max_y, y)
     sub_grid = grid[min_y:max_y + 1, min_x:max_x + 1]
     empty_tiles = np.where(sub_grid == 0)
-    # print(f'{len(empty_tiles[0])}')
+    if j == 9:
+        print(f'{len(empty_tiles[0])}')
     proposed_direction = vs_order[0]
     vs_order.pop(0)
     vs_order += [proposed_direction]
