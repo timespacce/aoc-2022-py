@@ -1536,45 +1536,6 @@ def task_33():
     return
 
 
-def task_34():
-    prefix_heights = np.array([
-        [1, 1, 1],
-        [3, 3, 3],
-        [2, 2, 2],
-        [1, 2, 0],
-        [2, 0, 2, ]
-    ])
-    cycle_heights = np.array([
-        [1, 1, 1, 1, 0, 1, 1],
-        [3, 2, 3, 2, 2, 2, 3],
-        [3, 3, 2, 3, 1, 1, 2],
-        [4, 0, 2, 4, 2, 2, 0],
-        [0, 1, 0, 0, 0, 0, 0, ]
-    ])
-
-    prefix_heights = np.array([
-        [1, 1, 1],
-        [3, 3, 3],
-        [2, 2, 2],
-        [1, 2, 0],
-        [2, 0, 2, ]
-    ])
-    cycle_heights = np.array([
-        [1, 1, 1, 1, 0, 1, 1],
-        [3, 2, 3, 2, 2, 2, 3],
-        [3, 3, 2, 3, 1, 1, 2],
-        [4, 0, 2, 4, 2, 2, 0],
-        [0, 1, 0, 0, 0, 0, 0, ]
-    ])
-
-    all_stones = 1000000000000
-    all_stones -= 15
-    height = prefix_heights.sum()
-    height += (all_stones / (5 * 7)) * cycle_heights.sum()
-    print(height)
-    return
-
-
 if __name__ == "__main__":
     begin = time.time()
     run()
