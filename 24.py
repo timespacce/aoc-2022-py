@@ -115,6 +115,6 @@ def bfs(start, target):
 
 
 x1, y1, x2, y2 = 1, 2, h - 2, w - 3
-s1 = bfs(start=(x1, y1, 0), target=(x2, y2))
-s2 = bfs(start=(x2, y2, s1), target=(x1, y1))  # 274
-s3 = bfs(start=(x1, y1, s2), target=(x2, y2))  # 568
+s1 = bfs(start=(x1, y1, 0), target=(x2, y2))  # 274
+s2 = bfs(start=(x2, y2, s1), target=(x1, y1))  # 568
+s3 = bfs(start=(x1, y1, s2), target=(x2, y2))
